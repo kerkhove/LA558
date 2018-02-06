@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<meta name="description" content="Assignment 4">
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Assignment 4</title>
+    
+<script>
+function toDinar(usd1) {
+    return (1183) * (usd1);
+}
+    document.getElementById("function1").innerHTML = toDinar(1);
+      
+function toRubles(usd2) {
+    return (57.36) * (usd2);
+}
+    document.getElementById("function2").innerHTML = toRubles(1)
+    
+var countries = ["United States", "Ecuador", "Timor-Leste", "El Salvador", "Marshall Islands", "Micronesia", "Palau", "Zimbabwe"];
+var text = "";
+for (i = 0; i < countries.length; i++) {
+    text += countries[i] + "<br>";
+}
+    document.getElementById("array1").innerHTML = text;
+    
+var country = "Japan";
+
+if (country === "Japan") {
+    document.getElementById("if1").innerHTML = "Japan uses the yen as its currency."
+}
+    
+var countries2 = [
+    {
+        name: "Iraq",
+        capital: "Baghdad",
+        currency: "Dinar",
+    },
+    {
+        name: "Russia",
+        capital: "Moscow",
+        currency: "Ruble",
+    },
+    {
+        name: "Japan",
+        capital: "Tokyo",
+        currency: "Yen",
+    }
+];
+    
+var listCount = 0;
+    
+function countryList() 
+    listCount = listCount + 1;
+    if (listCount >= (countries2.length)) {
+        listCount = 0;
+    }
+{
+    
+i = listCount;
+document.getElementById("name").innerHTML = countries2[i].name;
+document.getElementById("capital").innerHTML = countries2[i].capital;
+document.getElementById("currency").innerHTML = countries2[i].currency;
+}
+    
+function load() {
+    document.getElementById("name").innerHTML = countries2[i].name;
+    document.getElementById("capital").innerHTML = countries2[i].capital;
+    document.getElementById("currency").innerHTML = countries2[i].currency;
+}
+    
+    </script>
+</head>
+    <body onload="load()">
+
+    <h2>US Dollars to Iraqi Dinar</h2>
+        <p id="function1"></p>
+    <h2>US Dollars to Russian Rubles</h2>
+        <p id="function2"></p>
+    <h2>Countries With the US Dollar as Their Official Currency</h2>
+        <p id="array1"></p>
+    <h2>What currency does Japan use?</h2>
+        <p id="if1"></p>
+    <input type="button" onclick="countryList(1)" value="Change Country">
+        <br>
+    <b>Countries</b><br>
+    Name: <span id='name'>-</span><br>
+    Capital: <span id='capital'>-</span><br>
+    Currency: <span id='currency'>-</span><br>
+    <br>
+    </body>
