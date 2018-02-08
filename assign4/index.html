@@ -5,77 +5,79 @@
   <meta name="viewport" content="width=device-width">
   <title>JS Bin</title>
 <script>
-     function toDinar(usd1) {
-    return (1183) * (usd1);
+    function toDinar(usd1) {
+  return (1183) * (usd1);
 }
-    document.getElementById("function1").innerHTML = toDinar(1);
-      
+
+
+
+document.getElementById("function1").innerHTML = toDinar(1);
+
 function toRubles(usd2) {
-    return (57.36) * (usd2);
+  return (57.36) * (usd2);
 }
-    document.getElementById("function2").innerHTML = toRubles(1)
-    
+
+//cjs  add missing ; at end of next line
+document.getElementById("function2").innerHTML = toRubles(1);
+
 var countries = ["United States", "Ecuador", "Timor-Leste", "El Salvador", "Marshall Islands", "Micronesia", "Palau", "Zimbabwe"];
 var text = "";
 for (i = 0; i < countries.length; i++) {
-    text += countries[i] + "<br>";
+  text += countries[i] + "<br>";
 }
-    document.getElementById("array1").innerHTML = text;
-    
+document.getElementById("array1").innerHTML = text;
+
 var country = "Japan";
 if (country === "Japan") {
-    document.getElementById("if1").innerHTML = "Japan uses the yen as its currency."
+	//cjs  add missing ; at end of next line
+  document.getElementById("if1").innerHTML = "Japan uses the yen as its currency.";
 }
-    
-var countries2 = [
-    {
-        name: "Iraq",
-        capital: "Baghdad",
-        currency: "Dinar",
-    },
-    {
-        name: "Russia",
-        capital: "Moscow",
-        currency: "Ruble",
-    },
-    {
-        name: "Japan",
-        capital: "Tokyo",
-        currency: "Yen",
-    }
-];
-    
+
+var countries2 = [{
+  name: "Iraq",
+  capital: "Baghdad",
+  currency: "Dinar",
+}, {
+  name: "Russia",
+  capital: "Moscow",
+  currency: "Ruble",
+}, {
+  name: "Japan",
+  capital: "Tokyo",
+  currency: "Yen",
+}];
+
 var listCount = 0;
-    
-function countryList(){ 
-    listCount = listCount + 1;
-    if (listCount >= (countries2.length))
-        listCount = 0;
-    }
-{
-    
-i = listCount;
-document.getElementById("name").innerHTML = countries2[i].name;
-document.getElementById("capital").innerHTML = countries2[i].capital;
-document.getElementById("currency").innerHTML = countries2[i].currency;
+
+function countryList() {
+  listCount = listCount + 1;
+  if (listCount >= (countries2.length))
+    listCount = 0;
+} {
+
+  i = listCount;
+  document.getElementById("name").innerHTML = countries2[i].name;
+  document.getElementById("capital").innerHTML = countries2[i].capital;
+  document.getElementById("currency").innerHTML = countries2[i].currency;
 }
-    
+
 function load() {
-    document.getElementById("name").innerHTML = countries2[i].name;
-    document.getElementById("capital").innerHTML = countries2[i].capital;
-    document.getElementById("currency").innerHTML = countries2[i].currency;
+  document.getElementById("name").innerHTML = countries2[i].name;
+  document.getElementById("capital").innerHTML = countries2[i].capital;
+  document.getElementById("currency").innerHTML = countries2[i].currency;
 }
 
 var countryList2 = ["Argentina", "Bolivia", "Brazil", "Chile", "Colombia", "Ecuador",
-                   "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"]
-  
-  console.log(countryList2.length);
+  "Guyana", "Paraguay", "Peru", "Suriname", "Uruguay", "Venezuela"];
+//cjs  add missing ; at end of lione above
 
-  function countryDisplay() {
-    x = document.getElementById("countryNum").value;
-    console.log(wrong="+countryList2[x]+", correct="+countryList2[x-1]");
-    document.getElementById("countryName").innerHTML=countryList2[x-1];
-  }
+console.log(countryList2.length);
+
+
+function countryDisplay() {
+  x = document.getElementById("countryNum").value;
+  console.log(wrong = "+countryList2[x]+", correct = "+countryList2[x-1]");
+  document.getElementById("countryName").innerHTML = countryList2[x - 1];
 </script>
 </head>
 <body onload="load()">
