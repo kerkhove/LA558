@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="family" content = "Assignment 5">
+<meta name="viewport" content="width=device-width">
+    <title>Assignment 5</title>
+</head>
+<style>
+    
+    .dropbtn {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+    }    
+    .dropbtn:hover, .dropbtn:focus {
+        background-color: #2980B9;
+    }
+    
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    
+    .dropdown-content a:hover {background-color: #ddd}
+    
+    .show {display:block;}
+</style>
+<body>
+
+    <h3>How many siblings do you have?</h3>
+    
+    <input type="radio" id="myRadio0" name="sibling" value="0">0
+    <br>
+    <input type="radio" id="myRadio1" name="sibling" value="1">1
+    <br>
+    <input type="radio" id="myRadio2" name="sibling" value="2">2
+    <br>
+    <input type="radio" id="myRadio3+" name="sibling" value="3+">3+
+    <br>
+    
+    <button type="button" class="button" onclick="displayFunction()">CLICK</button>
+    <br>
+        <div id="display"></div>
+    
+    <HR></HR>
+    
+<h3>If you have siblings, are you the oldest, middle, or youngest child?</h3>    
+<div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Click Again</button>
+    <div id="myDropdown" class="dropdown-content">
+        <a href="#">Oldest</a>
+        <a href="#">Middle</a>
+        <a href="#">Youngest</a>
+    </div>
+    
+</div>
+<hr>
+        Are you from Nebraska? (Yes or No)<br>
+        <input id="fromNebraska" type="text">
+    
+    <button type="button" class="button" onClick="displayFunction2()">KEEP CLICKING</button>
+    
+<p id="textbox"></p>
+    <hr>
+
+    <h3>Check out Nebraska!</h3>
+<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=-107.39135742187501%2C38.61687046392973%2C-93.26293945312501%2C44.50434127765394&amp;layer=mapnik" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/#map=7/41.628/-100.327">View Larger Map</a></small>
+</body>
+<script>
+    
+function displayFunction() {
+if (document.getElementById('myRadio0').checked) {
+    myRadio_value = document.getElementById('myRadio0').value;
+} else if (document.getElementById('myRadio1').checked) {
+    myRadio_value = document.getElementById('myRadio1').value;
+} else if (document.getElementById('myRadio2').checked) {
+    myRadio_value = document.getElementById('myRadio2').value;
+} else if (document.getElementById('myRadio3+').checked) {
+    myRadio_value = document.getElementById('myRadio3+').value;
+}
+    
+document.getElementById("display").innerHTML = myRadio_value;
+}    
+    
+function myFunction() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
+}
+
+function displayFunction2(){
+    var text;
+    var state =
+    document.getElementById("fromNebraska").value;
+    
+        switch(state) {
+            case "No":
+                text = "Lame";
+                break;
+            case "Yes":
+                text = "Good job being from the coolest state!";
+                break;
+            default:
+                text = "I know it's not always easy to figure out where you're from, but do your best by typing either Yes or No.";
+        }
+    document.getElementById("textbox").innerHTML = text;
+}
+</script>
