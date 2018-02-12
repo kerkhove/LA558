@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    //JQuery references the button in HTML to hide all unordered list elements
+    $("h2").click(function(){
+        $("ul").hide();
+    });
+    //JQuery changes the color of all elements labeled as class c to white when clicked
+    $(".c").click(function(){
+        $(".c").css("color", "white");
+    });
+    //JQuery changes the background color of the list item with id "hide" to black
+    $("#hide").click(function(){
+        $("#hide").css("background-color", "black");
+    });
+    //JQuery animates all elements with class "a" to move 500px to the right when clicked
+    $("button").click(function(){
+        $("div").animate({right: '500px'}, 'slow');
+    });
+});
+</script>
+<body>
+<h2>How to be stealthy (Click me)</h2>
+    <button class="botton">Click to sneak</button>
+    <ul id="list2">
+        <div style="background:white;height:20px;width:120px;position:absolute;">
+            <li class="a">Sneak</li>
+        </div><br>
+            <li class="b" id="hide">Hide (Click me)</li>
+            <li class="c">Use camouflage (Click me)</li>
+    </ul>
+</body>
