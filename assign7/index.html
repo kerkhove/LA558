@@ -18,7 +18,7 @@
         
         $("#map0").show();
         
-        $('input:radio[name=basemap]').click(function(); {
+        $('input:radio[name=basemap]').click(function() {
             base = $('input:radio[name=basemap]:checked').val();
             $("#map0, #map1").hide();
             $("#map" + base).show();
