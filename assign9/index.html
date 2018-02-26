@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--
+Created using JS Bin
+http://jsbin.com
+
+Copyright (c) 2018 by kerkhove (http://jsbin.com/fapuwiq/3/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="LA 458/558 11a Leaflet starter file - 2018">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Assignment 9</title>
+	
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<style id="jsbin-css">
+#map {
+     width: 500px;
+     height: 400px;
+     /* background-color: red; */
+}
+    
+.leaflet-div-icon {
+        background-color: crimson;
+        color: white;
+        text-align: center;
+    }
+    
+.popup {
+    background-color: red;
+    text-align: center;
+    font-weight: bold;
+    }
+    
+</style>
+</head>
+<body>
+  <h1>Selected Features of Nebraska</h1>
+  <hr>
+<div id='map'></div>
+  <br>
+  Pan to <a href="javascript:lincoln()">University of Nebraska - Lincoln</a>
+  <br>
+  <a href="#" id='zoomOut'>Zoom out to Entire State</a>
+  <br>
+  <button id="kearney">Check Out University of Nebraska - Kearney</button>
+  <hr>
+  <p>*Hollow circles around Valentine, Scottsbluff, and Lincoln are scaled based on the size of each city.</p>
+<script id="jsbin-javascript">
+
+var map = L.map('map').setView([41.258004, -96.009870], 12);
+
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+
+var myDivIcon1 = L.divIcon({
+    iconSize: new L.Point(30, 20),
+    iconAnchor: new L.Point(20, 20),
+    html: 'UNO',
+    className: 'leaflet-div-icon'
+});    
+    
+var flowerIcon = L.icon({
+    iconUrl: 'http://leafletjs.com/examples/custom-icons/leaf-red.png',
+    shadowUrl: 'http://leafletjs.com/examples/custom-icons/leaf-shadow.png',
+    iconSize: [38, 95],
+    shadSize: [50, 64],
+    iconAnchor: [22, 94],
+    shadAnchor: [4, 62],
+    popupAnchor: [-3, -76]
+});
+    
+var marker1 = L.marker([41.258004, -96.009870], {
+  draggable: true,
+    icon: myDivIcon1,
+}).addTo(map)
+    .bindPopup("University of Nebraska - Omaha", {
+            closeButton: true,
+            keepInView: true,
+            className: 'popup'
+                });
+   //.openPopup();
+
+var marker2 = L.marker([40.819704, -96.700445], {
+    icon: flowerIcon,
+    title: 'UNL'
+}).addTo(map)
+    .bindPopup("University of Nebraska - Lincoln", {
+            closeButton: true,
+            keepInView: true,
+            className: 'popup',
+               });
+
+var marker3 = L.marker([40.700621, -99.095841], {
+    riseOnHover: true,
+}).addTo(map)
+    .bindPopup("University of Nebraska - Kearney");
+
+var myPoints = [
+    ["50",41.255867,-95.933255,"a"],
+    ["32",40.819704,-96.700445,"b"],
+    ["6",41.1544,-95.9146,"c"],
+    ["6",40.9264,-98.3420,"c"],
+    ["4",40.6993,-99.0817,"d"],
+    ["3",41.4334,-96.4981,"e"],
+    ["3",40.5863,-98.3899,"e"],
+    ["3",42.0327,-97.4138,"f"],
+    ["3",41.1403,-100.7601,"f"],
+    ["3",41.4303,-97.3594,"f"],
+];
+    
+function getColor(d) {
+    return d == 'a' ? '#ff0000' :
+            d == 'b' ? '#ffa500' :
+            d == 'c' ? '#ffff00' :
+            d == 'd' ? '#008000' :
+            d == 'e' ? '#0000ff' :
+            d == 'f' ? '#ee82ee' :
+                        "#FFFFFF";
+}
+
+for (var i = 0; i < myPoints.length; i++) {
+    marker = new L.circleMarker([myPoints[i][1],myPoints[i][2]], {
+        radius: myPoints[i][0]/2,
+            fillColor: getColor(myPoints[i][3]),
+            color: "#000",
+            weight: 0,
+            opacity: .5,
+            fillOpacity: 0.9
+})
+.bindPopup("Category: "+myPoints[i][3])
+    .addTo(map);
+}    
+    
+    
+var towns = [
+  [41.867222, -103.660833, "Scottsbluff, Nebraska"],
+  [40.922222, -98.358056, "Grand Island, Nebraska"],
+  [42.873611, -100.550278, "Valentine, Nebraska"]
+];
+
+for (var i = 0; i < towns.length; i++) {
+  marker = new L.marker([towns[i][0],towns[i][1]])
+  .bindPopup(towns[i][2])
+  .addTo(map);
+}
+
+function lincoln() {
+  map.panTo(new L.LatLng(40.819704, -96.700445));
+}
+
+$("#zoomOut").click(function(){
+  map.setZoom(5);
+});
+
+$("#kearney").click(function(){
+  map.setView(new L.LatLng(40.700621, -99.095841), 13);
+});
+</script>
+</body>
+</html>
