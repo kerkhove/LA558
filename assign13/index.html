@@ -11,7 +11,7 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
     
-    <script src="https://github.com/kerkhove/LA558/blob/master/assign13/iowaCounties.json"></script>
+    <script src="https://indicator.extension.iastate.edu/classes/leaflet-ajax-gh-pages/dist/leaflet.ajax.min.js"></script>
     
 <style id="jsbin-css">
 #map {
@@ -25,19 +25,61 @@
     
 <div id='map'></div>
 
-<script id="jsbin-javascript">    
-var map = L.map('map').setView([42.014201, -93.574482], 5);
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+<script id="jsbin-javascript">
+console.clear();
+
+var map = L.map('map').setView([42, -94], 6);    
+
+var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+  maxZoom: 18
 }).addTo(map);
     
-$.each(JSON.parse(iowaCounties), function (idx, obj) {
-    var marker = L.marker([obj.latitude, obj.longitude], {
-        title: obj.title,
-        opacity: .9,
-        riseOnHover: true
-    }).addTo(map);
-    marker.bindPopup(obj.description);
-});
+function getColor(d) {
+  return d <= '1' ? '#e6ffe6' :
+    d <= '2' ? "#b3ffb3" :
+   d <= '3' ? "#80ff80" :
+    d <= '4' ? "#33ff33" :
+    d <= '5' ? "#00ff00" :
+  d <= '6' ? "#00e600" :
+  d <= '7' ? "#00b300" :
+  d <= '8' ? "#009900" :
+  d <= '9' ? "#006400" :
+    "#FFFFFF"; //white
+}
+
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.RUCC_2013),
+        weight: 1,
+        opacity: 1,
+        color: 'white',
+        dashArray: '2',
+        fillOpacity: 0.7
+    };
+}
+    
+
+
+url = "https://profseeger.github.io/LA558/data/iowaCounties.json";
+
+var geojsonLayer = new L.GeoJSON.AJAX(url , {
+	style: style,
+	onEachFeature: function (feature, layer) {
+        htmlText = "<strong>" + feature.properties.NAME+ "</strong><br>Population 2010: <b>"  + feature.properties.POP2010 + "</b><br>Population 2000: <b>"  + feature.properties.POP2000 + "</b><br> RUCC 2013: <b>"  + feature.properties.RUCC_2013 + "</b>";
+        layer.bindPopup(htmlText);
+		layer.bindTooltip(feature.properties.NAME);
+    }
+}).addTo(map);
+ 
+var baseMaps = {
+    "OpenStreetMap": osm
+};
+
+var overlayMaps = {
+    "2013 County Classification": geojsonLayer
+};
+
+L.control.layers(baseMaps, overlayMaps).addTo(map);
 </script>
 </body>
