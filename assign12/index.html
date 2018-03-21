@@ -28,6 +28,7 @@
 <p>
 Dallas is Abilene's largest metropolitcan trading partner, doing 723.5 million dollars worth of trade in 2010.    
 </p>
+<p>Houston and San Antonio are Abilene's second and third largest metropolitan trading partners respectively.</p>
 <script id="jsbin-javascript">
     
 //JSON
@@ -69,16 +70,13 @@ var cities = [{
     
 //GeoJSON
 var myGeoJSON = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"marker-color":"#fd0000","marker-size":"medium","marker-symbol":""},"geometry":{"type":"Point","coordinates":[-96.7957305908203,32.783233658006516]}},{"type":"Feature","properties":{"marker-color":"#ff0000","marker-size":"medium","marker-symbol":""},"geometry":{"type":"Point","coordinates":[-95.36270141601562,29.75871465181543]}},{"type":"Feature","properties":{"marker-color":"#ff0000","marker-size":"medium","marker-symbol":""},"geometry":{"type":"Point","coordinates":[-98.49311828613281,29.429132343157633]}},{"type":"Feature","properties":{"marker-color":"#3005f8","marker-size":"medium","marker-symbol":"star"},"geometry":{"type":"Point","coordinates":[-99.74058151245117,32.44676821059965]}},{"type":"Feature","properties":{"stroke":"#ff80c0","stroke-width":3,"stroke-opacity":1},"geometry":{"type":"LineString","coordinates":[[-99.74761962890625,32.43793111207064],[-100.4534912109375,31.454439514853256]]}},{"type":"Feature","properties":{"stroke":"#ff80c0","stroke-width":3,"stroke-opacity":1},"geometry":{"type":"LineString","coordinates":[[-99.74212646484374,32.44720279964938],[-98.49517822265624,33.90005673964575]]}},{"type":"Feature","properties":{"stroke":"#ff80c0","stroke-width":3,"stroke-opacity":1},"geometry":{"type":"LineString","coordinates":[[-99.7393798828125,32.44488496716713],[-102.09732055664061,31.99875937194732]]}},{"type":"Feature","properties":{"stroke":"#ff80c0","stroke-width":3,"stroke-opacity":1},"geometry":{"type":"LineString","coordinates":[[-99.74212646484374,32.44488496716713],[-102.36991882324217,31.84781552640937]]}},{"type":"Feature","properties":{"stroke":"#ff80c0","stroke-width":3,"stroke-opacity":1},"geometry":{"type":"LineString","coordinates":[[-99.7393798828125,32.4454644308762],[-97.73574829101562,31.108800665173202]]}}]};
-
 //Base Layers
 var map = L.map('map').setView([32.449988, -99.734246], 5);
-
 //Make the Map
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-
-var iconMarkerURL = "http://www.googlemapsmarkers.com/v1/";
+var iconMarkerURL = "http://www.google.com/mapfiles/marker.png";
     
     for (var i = 0; i < cities.length; i++) {
         
@@ -96,7 +94,7 @@ var iconMarkerURL = "http://www.googlemapsmarkers.com/v1/";
     }
     
 var myStyle = {
-    "color": "#ff0000",
+    "color": "#ffccff",
     "weight": 3,
     "opactiy": 0.8,
 };
@@ -106,4 +104,5 @@ L.geoJSON(myGeoJSON, {
 }).addTo(map);
 </script>
 </body>
+</html>
 </html>
