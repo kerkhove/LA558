@@ -36,35 +36,35 @@ var cities = [{
     "name" : "San Angelo",
     "lat" : "31.457423",
     "long" : "-100.447272",
-    "iconColor" : "#99e699",
+    "iconColor" : "99e699",
     "popupText" : "~80 miles from Abilene"
 },
 {
     "name" : "Wichita Falls",
     "lat" : "33.912942",
     "long" : "-98.490984",
-    "iconColor" : "#99ff33",
+    "iconColor" : "99ff33",
     "popupText" : "~125 miles from Abilene"
 },
 {
     "name" : "Midland",
     "lat" : "31.998045",
     "long" : "-102.077816",
-    "iconColor" : "#ffff99",
+    "iconColor" : "ffff99",
     "popupText" : "~140 miles from Abilene"
 },
 {
     "name" : "Odessa",
     "lat" : "31.848557",
     "long" : "-102.369731",
-    "iconColor" : "#ff9999",
+    "iconColor" : "ff9999",
     "popupText" : "~160 miles from Abilene"
 },
 {
     "name" : "Killeen-Temple-Fort Hood",
     "lat" : "31.120295",
     "long" : "-97.727686",
-    "iconColor" : "#ff5050",
+    "iconColor" : "ff5050",
     "popupText" : "~160 miles from Abilene"
 }];
     
@@ -76,7 +76,7 @@ var map = L.map('map').setView([32.449988, -99.734246], 5);
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
-var iconMarkerURL = "http://www.google.com/mapfiles/marker.png";
+var iconMarkerURL = "http://www.googlemapsmarkers.com/v1/";
     
     for (var i = 0; i < cities.length; i++) {
         
