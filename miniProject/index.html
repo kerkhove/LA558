@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<meta name="robots" content="noindex">
+<html>
+<head>
+<meta name="description" content="LA 458/558 11a Leaflet starter file - 2018">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Assignment 12</title>
+	
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" /> <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+
+  <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+<style id="jsbin-css">
+#map {
+     width: 500px;
+     height: 400px;
+     /* background-color: red; */
+}
+.legend i {
+        line-height: 10px;
+        color: #555;
+    }    
+    .legend i {
+        width: 18px;
+        height: 20px;
+        float: left;
+        margin-right: 8px;
+        opacity: 0.9;
+    }
+    .info {
+        padding: 6px 8px;
+        font: 10px/20px Arial, Helvetica, sans-serif;
+        background: rgba(255,255,255,0.8);
+        box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        border-radius: 5px;
+    }
+    .info h4 {
+        margin: 0 0 5px;
+        color: #777;
+    }
+</style>
+</head>
+<body>
+  <h1>Property Owners on the 100 Block of Welch Avenue in Ames, Iowa</h1>
+  <hr>
+<div id='map'></div>
+    <br>
+<hr>
+<p>
+Click a parcel icon to learn who the owners is.
+<script id="jsbin-javascript">
+    
+//JSON
+var cities = [{
+    "name" : "105/107 Welch Ave",
+    "lat" : "42.022462",
+    "long" : " -93.650346",
+    "iconColor" : "99e699",
+    "popupText" : "ALMC Properties"
+},
+{
+    "name" : "109 Welch Ave",
+    "lat" : "42.022369",
+    "long" : "-93.650330",
+    "iconColor" : "99ff33",
+    "popupText" : "McFadden Holdings LLC"
+},
+{
+    "name" : "113 Welch Ave",
+    "lat" : "42.022212",
+    "long" : "-93.650364",
+    "iconColor" : "ffff99",
+    "popupText" : "113 Welch Avenue LLC"
+},
+{
+    "name" : "117 Welch Ave",
+    "lat" : "42.022065",
+    "long" : "-93.650291",
+    "iconColor" : "ff9999",
+    "popupText" : "Chun Ling Lu & Anfu Wang"
+},
+{
+    "name" : "121 Welch Ave",
+    "lat" : "42.021975",
+    "long" : "-93.650277",
+    "iconColor" : "ff5050",
+    "popupText" : "Eloise & Donald Katz Trustees"
+},
+{
+    "name" : "123 Welch Ave",
+    "lat" : "42.021855",
+    "long" : "-93.650309",
+    "iconColor" : "800000",
+    "popupText" : "Ronald E & Kay G Bartlett"
+},
+{
+    "name" : "127 Welch Ave",
+    "lat" : "42.021775",
+    "long" : "-93.650318",
+    "iconColor" : "ffff00",
+    "popupText" : "Income Equation LC"
+},
+{
+    "name" : "127 Welch Ave 129",
+    "lat" : "42.021752",
+    "long" : "-93.650275",
+    "iconColor" : "99e699",
+    "popupText" : "Randall Cooperative Housing Association"
+},
+{
+    "name" : "133 Welch Ave",
+    "lat" : "42.021650",
+    "long" : "-93.650315",
+    "iconColor" : "99ff33",
+    "popupText" : "Scott E Randall"
+},
+{
+    "name" : "116 Welch Ave",
+    "lat" : "42.022082",
+    "long" : "-93.650006",
+    "iconColor" : "ffff99",
+    "popupText" : "Campus Investors IS LLC"
+},
+{
+    "name" : "120 Welch Ave",
+    "lat" : "42.021990",
+    "long" : "-93.650011",
+    "iconColor" : "ff9999",
+    "popupText" : "Chun Ling Lu & Anfu Wang"
+},
+{
+    "name" : "126 Welch Ave",
+    "lat" : "42.021796",
+    "long" : "-93.649989",
+    "iconColor" : "ff5050",
+    "popupText" : "Cave Inn Building LLC"
+},
+{
+    "name" : "134 Welch Ave",
+    "lat" : "42.021594",
+    "long" : "-93.649825",
+    "iconColor" : "800000",
+    "popupText" : "City of Ames"
+}];
+    
+//GeoJSON
+var myGeoJSON = {"type":"FeatureCollection","features":[{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026652812958,42.02255009627889],[-93.65053206682205,42.02255009627889],[-93.65053206682205,42.022400653860984],[-93.65026384592056,42.022400653860984],[-93.65026652812958,42.02255009627889]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026652812958,42.02232692880542],[-93.65026652812958,42.022400653860984],[-93.65053206682205,42.022400653860984],[-93.65052938461304,42.02237076533523],[-93.65063399076462,42.02236877276635],[-93.6506313085556,42.022328921375596],[-93.65026652812958,42.02232692880542]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65056693553925,42.02215556753521],[-93.65026652812958,42.02215756011078],[-93.65026652812958,42.022328921375596],[-93.65056961774826,42.02233091394573],[-93.65056693553925,42.02215556753521]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026921033859,42.02209379766178],[-93.65046232938766,42.02209379766178],[-93.65045964717865,42.02202405740997],[-93.65027457475661,42.022022064830225],[-93.65026921033859,42.02209379766178]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65025848150253,42.02200213902933],[-93.65065544843674,42.02200413160969],[-93.65065544843674,42.02189852476397],[-93.65026116371155,42.02189653218028],[-93.65025848150253,42.02200213902933]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026652812958,42.021880591508605],[-93.65044623613358,42.02187660634005],[-93.65044623613358,42.02182280654021],[-93.65026921033859,42.02182081395415],[-93.65026652812958,42.021880591508605]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026921033859,42.02173114751711],[-93.65026921033859,42.02182280654021],[-93.65044891834259,42.02182280654021],[-93.65044623613358,42.021733140105965],[-93.65026921033859,42.02173114751711]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026921033859,42.02171719939333],[-93.65026921033859,42.021733140105965],[-93.65044623613358,42.02173712528353],[-93.65045696496962,42.021866643417596],[-93.6509183049202,42.02187062858676],[-93.6509183049202,42.02171321421454],[-93.65026921033859,42.02171719939333]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65026652812958,42.02171520680396],[-93.65067154169083,42.02171719939333],[-93.65067422389984,42.02155779204698],[-93.65027457475661,42.02155181426371],[-93.65026652812958,42.02171520680396]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65004390478134,42.022149589808144],[-93.65004926919937,42.02200612419],[-93.64980518817902,42.02200612419],[-93.64980518817902,42.021932398676995],[-93.65004926919937,42.02193040609437],[-93.65005195140839,42.02190848768144],[-93.64937067031859,42.021918450597354],[-93.64936530590057,42.02200811677026],[-93.64932507276535,42.02200413160969],[-93.64932775497437,42.02214560465646],[-93.65004390478134,42.022149589808144]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65005195140839,42.021932398676995],[-93.64980518817902,42.02193439125954],[-93.64980518817902,42.02201210193057],[-93.65005195140839,42.02201010935044],[-93.65005195140839,42.021932398676995]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65001976490021,42.02190848768144],[-93.65002244710922,42.021703251266466],[-93.64932239055634,42.021703251266466],[-93.64932239055634,42.02191247284799],[-93.65001976490021,42.02190848768144]]]}},{"type":"Feature","properties":{"stroke":"#555555","stroke-width":2,"stroke-opacity":1,"fill":"#ff80c0","fill-opacity":0.5},"geometry":{"type":"Polygon","coordinates":[[[-93.65002512931824,42.02170524385621],[-93.65003049373627,42.021531888315444],[-93.64932507276535,42.021531888315444],[-93.64932239055634,42.021707236445884],[-93.65002512931824,42.02170524385621]]]}}]}
+
+function getColor(d) {
+    return d == 'Polygon' ? '#ff80c0' :
+    "#FFFFFF";
+}
+
+var legend = L.control({position: 'bottomright'});
+    
+legend.onAdd = function (map) {
+    
+    var div = L.DomUtil.create('div', 'info legend'),
+        polygon = ['Polygon'],
+        labels = ['Parcel'];
+    
+    for (var i = 0; i < polygon.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + getColor(polygon[i]) + ' "></ia> ' + polygon[i] + (polygon ? '' + '<br>' : '');
+    }
+
+    return div;
+};
+    
+legend.addTo(map);    
+//Base Layers
+var map = L.map('map').setView([42.022212, -93.650328], 18);
+//Make the Map
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+var iconMarkerURL = "http://www.googlemapsmarkers.com/v1/";
+    
+    for (var i = 0; i < cities.length; i++) {
+        
+          console.log(cities[i].name);
+        
+        var marker = L.marker([cities[i].lat, cities[i].long], {
+        icon: L.icon({
+            iconUrl: iconMarkerURL + cities[i].iconColor,
+            iconSize: [9, 17],
+            icon: [5, 17],
+            popupAnchor: [0, -20]
+        }),
+        title: cities[i].name
+    }).bindPopup("<b>"+cities[i].name+"</b><br>"+cities[i].popupText+".").addTo(map);
+    }
+    
+
+    
+var myStyle = {
+    "color": "#ffccff",
+    "weight": 3,
+    "opactiy": 0.8,
+};
+    
+L.geoJSON(myGeoJSON, {
+    style: myStyle,
+}).addTo(map);
+</script>
+</body>
+</html>
