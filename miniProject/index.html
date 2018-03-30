@@ -14,18 +14,22 @@
 #map {
      width: 500px;
      height: 400px;
+    margin: auto;
+     border-style: solid;
 }
 .legend i {
         line-height: 20px;
         color: #555;
     }    
     .legend i {
-        width: 18px;
-        height: 20px;
-        float: left;
-        margin-right: 20px;
-        opacity: 0.9;
-    }
+       width: 14px;
+       height: 14px;
+       float: left;
+       margin-right: 4px;
+       opacity: 0.9;
+    border-style: solid;
+       border-width: 2px;
+ }
     .info {
         padding: 6px 20px;
         font: 10px/20px Arial, Helvetica, sans-serif;
@@ -36,6 +40,12 @@
     .info h4 {
         margin: 0 0 5px;
         color: #777;
+    }
+    h1 {
+        text-align: center;
+    }
+    p {
+        text-align: center;
     }
 </style>
 </head>
@@ -154,9 +164,11 @@ function getColor(d) {
 //Base Layers
 var map = L.map('map').setView([42.022212, -93.650328], 18);
 //Make the Map
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+var OSM = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
+    
+
 var iconMarkerURL = "http://www.googlemapsmarkers.com/v1/";
     
     for (var i = 0; i < cities.length; i++) {
@@ -183,16 +195,14 @@ legend.onAdd = function (map) {
         label = [''];
         
     
-    for (var i = 0; i < polygon.length; i++) {
-        div.innerHTML +=
-            '<i style="background:' + getColor(polygon[i]) + ' "></ia> ' + polygon[i] + (polygon ? 'Parcel' + '<br>' : '');
-    }
-
+     for (var i = 0; i < polygon.length; i++) {
+       div.innerHTML +=
+           '<i style="border-color:' + getColor(polygon[i]) + ' "></i> ' + polygon[i] + (polygon ? '' + '<br>' : '');
+   }
     return div;
 };
     
 legend.addTo(map);
-
     
 var myStyle = {
     "color": "#ffccff",
@@ -203,6 +213,12 @@ var myStyle = {
 L.geoJSON(myGeoJSON, {
     style: myStyle,
 }).addTo(map);
+
+var baseMaps = {
+    "OpenStreetMap": OSM
+};
+
+L.control.layers(baseMaps).addTo(map);
 </script>
 </body>
 </html>
