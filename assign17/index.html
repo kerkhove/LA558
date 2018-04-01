@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+<meta name="description" content="LA 458/558 21b Leaflet Geocoding via Google API" />
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" /> 
+	  
+<script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+	
+<script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+	  
+  <style id="jsbin-css">
+html, body, 
+#map { height: 280px; margin: 0; padding: 0; }
+</style>
+</head>
+  <body>
+	  Enter the address: <input type="text" id="myAddress">
+	  <br><button type="button" id='geocode'>Click Me!</button>
+	  <br><br>
+<div id="map"></div>
+  <script id="jsbin-javascript">
+console.clear();
+var map = L.map('map').setView([43, -93], 12);
+// add an OpenStreetMap tile layer
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18
+}).addTo(map);
+//uncomment for testing
+//$('#myAddress').val('1307 Florida Ave., Ames, IA, 50014');
+$('#geocode').click(function () {
+    myAddress = encodeURI($('#myAddress').val());
+    //now take this address and send it to your geocoder of choice
+    //var geocodingAPI_URL = "http://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address="+myAddress+"&benchmark=9&format=json";
+    var geocodingAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=" + myAddress + "&sensor=true";
+    console.log(geocodingAPI_URL);
+    //Start Geocoding
+    $.getJSON(geocodingAPI_URL, function (json) {
+        //console.log(json.results[0].address_components);
+        //console.log(json.status);
+        var address = json.results[0].formatted_address;
+        var lat = json.results[0].geometry.location.lat;
+        var long = json.results[0].geometry.location.lng;
+        console.log(address);
+        console.log(lat);
+        console.log(long);
+        var county = '';
+        $.each(json.results[0].address_components, function (i, jsonData) {
+            level = jsonData.types[0];
+            if ('administrative_area_level_2' === level.toLowerCase()) {
+                county = (jsonData.short_name);
+            }
+        });
+        console.log("I am in " + county + "!");
+        //now add the marker to the map
+        var marker = L.marker([lat, long], {
+            draggable: false,
+            title: address,
+            opacity: 0.75
+        }).addTo(map);
+        marker.bindPopup(address, lat, long, county).openPopup();
+		
+		map.setView([lat, long]);
+    });
+}); //end geocode click function
+</script>
+
+
+<script id="jsbin-source-css" type="text/css">html, body, 
+#map { height: 280px; margin: 0; padding: 0; }</script>
+
+<script id="jsbin-source-javascript" type="text/javascript">console.clear();
+var map = L.map('map').setView([43, -93], 12);
+// add an OpenStreetMap tile layer
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18
+}).addTo(map);
+//uncomment for testing
+//$('#myAddress').val('1307 Florida Ave., Ames, IA, 50014');
+$('#geocode').click(function () {
+    myAddress = encodeURI($('#myAddress').val());
+    //now take this address and send it to your geocoder of choice
+    //var geocodingAPI_URL = "http://geocoding.geo.census.gov/geocoder/locations/onelineaddress?address="+myAddress+"&benchmark=9&format=json";
+    var geocodingAPI_URL = "http://maps.googleapis.com/maps/api/geocode/json?address=" + myAddress + "&sensor=true";
+    console.log(geocodingAPI_URL);
+    //Start Geocoding
+    $.getJSON(geocodingAPI_URL, function (json) {
+        //console.log(json.results[0].address_components);
+        //console.log(json.status);
+        var address = json.results[0].formatted_address;
+        var lat = json.results[0].geometry.location.lat;
+        var long = json.results[0].geometry.location.lng;
+        console.log(address);
+        console.log(lat);
+        console.log(long);
+        var county = '';
+        $.each(json.results[0].address_components, function (i, jsonData) {
+            level = jsonData.types[0];
+            if ('administrative_area_level_2' === level.toLowerCase()) {
+                county = (jsonData.short_name);
+            }
+        });
+        console.log("I am in " + county + "!");
+        //now add the marker to the map
+        var marker = L.marker([lat, long], {
+            draggable: false,
+            title: address,
+            opacity: 0.75
+        }).addTo(map);
+        marker.bindPopup(address, lat, long, county).openPopup();
+		
+		map.setView([lat, long]);
+    });
+}); //end geocode click function</script></body>
+</html>
